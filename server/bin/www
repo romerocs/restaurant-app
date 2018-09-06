@@ -3,6 +3,11 @@
 /**
  * Module dependencies.
  */
+//NOT NEEDED RIGHT NOW. NOT AN SSR APP YET
+// require('@babel/register')({
+//   ignore: [ /(node_modules)/ ],
+//   presets: ['@babel/preset-env', '@babel/preset-react']
+// });
 
 var app = require('../app');
 var debug = require('debug')('restaurants:server');
@@ -12,7 +17,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '8000');
 app.set('port', port);
 
 /**

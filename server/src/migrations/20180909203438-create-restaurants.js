@@ -17,17 +17,11 @@ module.exports = {
       address: {
         type: Sequelize.STRING
       },
-      breakfast: {
-        type: Sequelize.BOOLEAN
+      meal: {
+        type: Sequelize.STRING
       },
-      brunch: {
-        type: Sequelize.BOOLEAN
-      },
-      lunch: {
-        type: Sequelize.BOOLEAN
-      },
-      dinner: {
-        type: Sequelize.BOOLEAN
+      yelp: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

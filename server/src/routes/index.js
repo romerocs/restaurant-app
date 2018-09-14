@@ -3,6 +3,7 @@ var router = express.Router();
 
 const restCtrl = require("../controllers").restaurants;
 const catCtrl = require("../controllers").categories;
+const mealCtrl = require("../controllers").meal;
 const yelp = require("../external/yelp").search;
 
 /* GET home page. */
@@ -21,6 +22,8 @@ router.get("/api/restaurant/:category", restCtrl.list);
 router.delete("/api/restaurant/:id", restCtrl.destroy);
 
 router.get("/api/categories/", catCtrl.list);
+
+router.get("/api/meal/", mealCtrl.list);
 
 router.get("/api/search/restaurants/:term", yelp);
 

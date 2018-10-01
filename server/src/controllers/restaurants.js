@@ -1,3 +1,4 @@
+const sequelize = require('sequelize');
 const Restaurants = require("../models").Restaurants;
 
 module.exports = {
@@ -6,21 +7,57 @@ module.exports = {
             name: req.body.name,
             category: req.body.category,
             address: req.body.address,
-            breakfast: req.body.breakfast ? req.body.breakfast : false,
-            brunch: req.body.brunch ? req.body.brunch : false,
-            lunch: req.body.lunch ? req.body.lunch : false,
-            dinner: req.body.dinner ? req.body.dinner : false
+            meal: req.body.meal
         })
         .then(restaurant => res.status(201).send(restaurant))
         .catch(error => res.status(400).send(error));
     },
-    list(req, res) {
+    category(req, res) {
         return Restaurants.findAll({
             where: {
                 category: req.params.category
             }
         })
             .then(restaurants => res.status(200).send(restaurants))
+            .catch(error => res.status(400).send(error));
+    },
+    random(req, res) {
+        return Restaurants.findOne({
+            where: {
+                category: req.params.category,
+                meal: {[sequelize.Op.contains]: [req.params.meal]}
+            },
+            order: sequelize.fn('RANDOM')
+        })
+            .then(restaurants => res.status(200).send(restaurants))
+            .catch(error => res.status(400).send(error));
+    },
+    update(req, res) {
+        return Restaurants.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+            .then(restaurants => {
+                if (!restaurants) {
+                    return res.status(404).send({
+                        message: "Restaurant Not Found"
+                    });
+                }
+
+               
+                return restaurants
+                    .update({
+                        name: req.body.name || restaurants.name,
+                        category: req.body.category || restaurants.category, 
+                        address: req.body.address || restaurants.address,
+                        meal: req.body.meal || restaurants.meal
+                    })
+                    .then(updatedRest =>
+                        res.status(200).send(updatedRest)
+                    )
+                    .catch(error => res.status(400).send(error));
+            })
             .catch(error => res.status(400).send(error));
     },
     destroy(req, res) {

@@ -17,8 +17,10 @@ router.get("/api", function(req, res, next) {
     });
 });
 
-router.post("/api/restaurant/", restCtrl.create);
-router.get("/api/restaurant/:category", restCtrl.list);
+router.post("/api/restaurant/add", restCtrl.create);
+router.put("/api/restaurant/update/:id", restCtrl.update);
+router.get("/api/restaurant/:category", restCtrl.category);
+router.get("/api/restaurant/random/:category/:meal", restCtrl.random);
 router.delete("/api/restaurant/:id", restCtrl.destroy);
 
 router.get("/api/categories/", catCtrl.list);

@@ -4,7 +4,7 @@ class TopBar extends Component {
 
     render() {
         return (
-            <div>Top Bar here</div>
+            <div className="container">Top Bar here</div>
         )
     }
 }

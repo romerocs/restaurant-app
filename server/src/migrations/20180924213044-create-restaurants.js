@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       meal: {
-        type: Sequelize.STRING
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       yelp: {
         type: Sequelize.STRING

@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     category: DataTypes.STRING,
     address: DataTypes.STRING,
-    meal: DataTypes.ARRAY(DataTypes.STRING),
+    meal: DataTypes.STRING,
     yelp: DataTypes.STRING
   }, {});
   Restaurants.associate = function(models) {

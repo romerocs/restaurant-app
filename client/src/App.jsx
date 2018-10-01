@@ -1,40 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux";
-//import fetch from 'fetch-everywhere';
+import React, { Component } from "react";
 
-import TopBar from './components/TopBar';
-import GetRandomRestaurantForm from './components/getRandomRestaurant/Form';
+import TopBar from "./components/TopBar";
+import RandomRestaurant from "./containers/RandomRestaurant";
+import Directory from "./containers/Directory";
 
 class App extends Component {
-  constructor() {
-    super();
+    constructor(props) {
+        super(props);
+    }
 
-    //this.handleClick = this.handleClick.bind(this);
-  }
-
-  // handleClick() {
-  //   this.props.dispatch({type:"TEST_ACTION", data:{test: "hello squirrel"} });
-  // }
-  
-  componentDidMount() {
-    //get all categories
-    //http://localhost:8000/api/categories
-
-    //get all meals
-    //http://localhost:8000/api/meal
-  }
-  render() {
-    return (
-      <div className="App">
-          <TopBar />
-          <GetRandomRestaurantForm/>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <TopBar />
+                <RandomRestaurant />
+                <Directory />
+            </div>
+        );
+    }
 }
 
-export default connect((state, props) => {
-  return {
-      test: state.test
-  };
-})(App);
+export default App;

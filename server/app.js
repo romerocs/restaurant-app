@@ -16,10 +16,21 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(
-  path.resolve(__dirname, '..', 'client/public'),
-  { maxAge: '30d' },
-));
+
+// Express only serves static assets in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(
+    path.resolve(__dirname, '..', 'client/build'),
+    { maxAge: '30d' },
+  ));
+}
+else {
+  app.use(express.static(
+    path.resolve(__dirname, '..', 'client/public'),
+    { maxAge: '30d' },
+  ));
+}
+
 
 
 app.use('/', indexRouter);

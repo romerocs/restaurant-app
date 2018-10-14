@@ -21,12 +21,13 @@ router.post("/api/restaurant/add", restCtrl.create);
 router.put("/api/restaurant/update/:id", restCtrl.update);
 router.get("/api/restaurant/:category", restCtrl.category);
 router.get("/api/restaurant/random/:category/:meal", restCtrl.random);
-router.delete("/api/restaurant/:id", restCtrl.destroy);
+router.delete("/api/delete/restaurant/:id", restCtrl.destroy);
 
 router.get("/api/categories/", catCtrl.list);
 
 router.get("/api/meal/", mealCtrl.list);
 
+router.get("/api/restaurants/list", restCtrl.list);
 router.get("/api/search/restaurants/:term", yelp);
 
 module.exports = router;

@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import GetRandomRestaurantForm from "../components/randomRestaurant/Form";
-import RandomRestaurantResult from "../components/Result";
+import RandomRestaurantResultCard from "../components/randomRestaurant/resultCard";
+// import TagMeal from "../components/tagMeal";
+// import TagCategory from "../components/tagCategory";
 
 class RandomRestaurant extends Component {
     constructor(props) {
@@ -50,13 +52,19 @@ class RandomRestaurant extends Component {
                 {this.props.restaurant &&
                     this.props.showResult && (
                         <div>
-                            <button onClick={this.tryAgain}>
+                            <button
+                                className="btn btn-outline-primary"
+                                onClick={this.tryAgain}
+                            >
                                 Try again
                             </button>
-                            <button onClick={this.startOver}>Start over</button>
-                            <RandomRestaurantResult
-                                name={this.props.restaurant.name}
-                            />
+                            <button
+                                className="btn btn-outline-primary"
+                                onClick={this.startOver}
+                            >
+                                Start over
+                            </button>
+                            <RandomRestaurantResultCard restaurant={this.props.restaurant} />
                         </div>
                     )}
             </div>
@@ -67,11 +75,10 @@ class RandomRestaurant extends Component {
 export default connect((state, props) => {
     return {
         meal: state.fetchInitialState.meal,
-        categories: state.fetchInitialState.categories,
-        restaurant: state.fetchRandomRestaurant.restaurant,
         mealSelection: state.fetchRandomRestaurant.mealSelection,
         categoriesSelection: state.fetchRandomRestaurant.categoriesSelection,
         showForm: state.uiReducer.showForm,
-        showResult: state.uiReducer.showResult
+        showResult: state.uiReducer.showResult,
+        restaurant: state.fetchRandomRestaurant.restaurant
     };
 })(RandomRestaurant);

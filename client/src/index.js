@@ -6,7 +6,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import fetch from 'fetch-everywhere';
 
-let promises = [fetch("/api/meal"), fetch("/api/categories")];
+let promises = [fetch("/api/meal"), fetch("/api/categories"), fetch("/api/restaurants/list")];
 
 function _fetchInitialStateData() {
     return Promise.all(

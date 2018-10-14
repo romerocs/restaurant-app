@@ -2,7 +2,8 @@ import { combineReducers } from "redux";
 
 let defaultInitialState = {
     meal: false,
-    categories: false
+    categories: false,
+    directoryList: false
 };
 
 function fetchInitialState(state = defaultInitialState, action) {
@@ -11,7 +12,13 @@ function fetchInitialState(state = defaultInitialState, action) {
             return {
                 ...state,
                 meal: action.data.meal,
-                categories: action.data.categories
+                categories: action.data.categories,
+                directoryList: action.data.directoryList
+            };
+        case "GET_ALL_DIRECTORY_RESTAURANTS_SUCCESS":
+            return {
+                ...state,
+                directoryList: action.data.content
             };
         default:
             return state;
@@ -42,13 +49,10 @@ function fetchRandomRestaurant(state = defaultRestaurantState, action) {
     }
 }
 
-let defaultFormState = {
-    showForm: true
-};
-
 const defaultUIState = {
     showForm: true,
-    showResult: false
+    showResult: false,
+    editMode: false
 };
 
 function uiReducer(state = defaultUIState, action) {
@@ -81,7 +85,7 @@ function uiReducer(state = defaultUIState, action) {
 const defaultYelpSearchState = {
     results: false,
     total: 0
-}
+};
 function yelpSearch(state = defaultYelpSearchState, action) {
     switch (action.type) {
         case "RECEIVED_YELP_RESPONSE_SUCCESS":
@@ -90,22 +94,73 @@ function yelpSearch(state = defaultYelpSearchState, action) {
                 results: action.data.results,
                 total: action.data.total
             };
+        case "YELP_SEARCH_RESET":
+        return {
+            ...state,
+            results: false,
+            total: 0
+        };        
         default:
             return state;
     }
 }
 
 const defaultAddRestaurantState = {
+    addedRestaurant: false
+};
 
-    
-}
-function addRestaurant(state = defaultAddRestaurantState, action) {
+function displayAddedRestaurant(state = defaultAddRestaurantState, action) {
     switch (action.type) {
-        case "ADDED_RESTAURANT_SUCCESS":
+        case "DISPLAY_ADDED_RESTAURANT":
             return {
                 ...state,
-                // results: action.data.results,
-                // total: action.data.total
+                addedRestaurant: action.data
+            };
+        case "REMOVE_ADDED_RESTAURANT":
+            return {
+                ...state,
+                addedRestaurant: false
+            };
+        default:
+            return state;
+    }
+}
+
+const defaultCheckboxState = {
+    selectedCheckboxes: []
+};
+
+function checkboxSelection(state = defaultCheckboxState, action) {
+    switch (action.type) {
+        case "ADD_CHECKBOX_SELECTION":
+            return {
+                ...state,
+                selectedCheckboxes: [...state.selectedCheckboxes, action.data]
+            };
+        case "REMOVE_CHECKBOX_SELECTION":
+            let index = state.selectedCheckboxes.indexOf(action.data);
+            let arr = state.selectedCheckboxes;
+            arr.splice(index, 1);
+
+            return {
+                ...state,
+                selectedCheckboxes: arr
+            };
+        default:
+            return state;
+    }
+}
+
+const defaultCategorySelectionState = {
+    categoriesSelection: false
+};
+
+function categorySelection(state = defaultCategorySelectionState, action) {
+    switch (action.type) {
+        case "ADD_CATEGORY_SELECTION":
+            return {
+                ...state,
+                categoriesSelection: action.data
             };
         default:
             return state;
@@ -116,5 +171,8 @@ export default combineReducers({
     fetchInitialState: fetchInitialState,
     fetchRandomRestaurant: fetchRandomRestaurant,
     uiReducer: uiReducer,
-    yelpSearch: yelpSearch 
+    yelpSearch: yelpSearch,
+    displayAddedRestaurant: displayAddedRestaurant,
+    checkboxSelection: checkboxSelection,
+    categorySelection: categorySelection
 });

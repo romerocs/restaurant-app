@@ -13,6 +13,7 @@ function DropdownMeals(props) {
             id="meal"
             onChange={handleChange}
         >
+            <option value="">Select a meal</option>
             {props.meal.map((i, index) => {
                 return (
                     <option value={i.type} key={index}>

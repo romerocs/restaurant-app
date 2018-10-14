@@ -39,7 +39,7 @@ class GetRandomRestaurantForm extends Component {
                 )}
 
                 {this.state.showSubmit && (
-                    <input type="submit" value="Submit" className="button"/>
+                    <input type="submit" value="Submit" className="btn btn-outline-primary"/>
                 )}
             </form>
         );

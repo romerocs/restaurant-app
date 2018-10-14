@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 
 const Form = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <input type="text" name="keyword" />
-            <input type="submit" />
+            <input className="btn btn-primary" type="submit" />
         </form>
     
     )

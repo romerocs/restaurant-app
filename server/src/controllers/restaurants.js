@@ -12,6 +12,13 @@ module.exports = {
         .then(restaurant => res.status(201).send(restaurant))
         .catch(error => res.status(400).send(error));
     },
+    list(req, res) {
+        return Restaurants.findAll({
+            order: sequelize.col('name')
+        })//
+            .then(restaurants => res.status(200).send({content: restaurants, type: "directoryList"}))
+            .catch(error => res.status(400).send(error));
+    },
     category(req, res) {
         return Restaurants.findAll({
             where: {
@@ -61,6 +68,7 @@ module.exports = {
             .catch(error => res.status(400).send(error));
     },
     destroy(req, res) {
+        console.log(req.params.id);
         return Restaurants.find({
             where: {
                 id: req.params.id
@@ -69,7 +77,7 @@ module.exports = {
             .then(restaurant => {
                 if (!restaurant) {
                     return res.status(404).send({
-                        message: "Rated Item Not Found"
+                        message: "Restaurant Not Found"
                     });
                 }
 

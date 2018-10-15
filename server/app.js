@@ -20,13 +20,13 @@ app.use(cookieParser());
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(
-    path.resolve(__dirname, '..', 'client/build'),
+    path.resolve(__dirname, '/', 'client/build'),
     { maxAge: '30d' },
   ));
 }
 else {
   app.use(express.static(
-    path.resolve(__dirname, '..', 'client/public'),
+    path.resolve(__dirname, '/', 'client/public'),
     { maxAge: '30d' },
   ));
 }

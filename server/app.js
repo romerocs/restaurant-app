@@ -23,6 +23,14 @@ if (process.env.NODE_ENV === "production") {
     path.resolve(__dirname, '..', 'client/build'),
     { maxAge: '30d' },
   ));
+
+  app.get('/*', function(req, res) {   
+    res.sendFile(path.join(__dirname, '/client/build/index.html'), function(err) {
+      if (err) {
+        res.status(500).send(err)
+      }
+    })
+  })
 }
 else {
   app.use(express.static(

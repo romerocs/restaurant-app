@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store/configureStore';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+//import registerServiceWorker from './registerServiceWorker';
 import fetch from 'fetch-everywhere';
 
 let promises = [fetch("/api/meal"), fetch("/api/categories"), fetch("/api/restaurants/list")];

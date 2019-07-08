@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import DropdownCategories from "../dropdownCategories";
 import DropdownMeals from "../dropdownMeals";
+import StyledButton from "../button";
+import { buttonThemes } from "../../style-settings/colors";
 
 class GetRandomRestaurantForm extends Component {
     constructor() {
@@ -8,28 +10,31 @@ class GetRandomRestaurantForm extends Component {
 
         this.state = {
             showMeals: false,
-            showSubmit: false
+            showSubmit: false,
+            category: false,
+            meal: false
         };
 
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleMealChange = this.handleMealChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleCategoryChange(e) {
-        this.setState({ showMeals: true });
+    handleCategoryChange(value) {
+        this.setState({ showMeals: true, category: value });
     }
-    handleMealChange(e) {
-        this.setState({ showSubmit: true });
+    handleMealChange(value) {
+        this.setState({ showSubmit: true, meal: value });
     }
     handleSubmit(e) {
         e.preventDefault();
 
         this.props.getRandomRestaurant({
-            meal: e.target.meal.value,
-            categories: e.target.categories.value
+            meal: this.state.meal,
+            categories: this.state.category
         });
     }
     render() {
+
         return (
             <form onSubmit={this.handleSubmit}>
                 <DropdownCategories categories={this.props.categories} handleCategoryChange={this.handleCategoryChange} />
@@ -39,7 +44,7 @@ class GetRandomRestaurantForm extends Component {
                 )}
 
                 {this.state.showSubmit && (
-                    <input type="submit" value="Submit" className="btn btn-outline-primary"/>
+                    <StyledButton text="Randomize It" type="submit" theme={buttonThemes.primary} />
                 )}
             </form>
         );

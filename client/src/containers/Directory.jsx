@@ -12,8 +12,15 @@ import UpdateRestaurantButton from "../components/directory/updateRestaurantButt
 import DeleteRestaurantButton from "../components/directory/deleteRestaurantButton";
 import DirectoryList from "../components/directory/directoryList";
 import RestaurantOptions from "../components/restaurantOptions";
-// import TagMeal from "../components/tagMeal";
-// import TagCategory from "../components/tagCategory";
+
+import styled from "styled-components";
+import breakpoints from "../style-settings/breakpoints";
+
+const MainWrapper = styled.div`
+    max-width: ${breakpoints.tabletLarge}px;
+    width: 100%;
+    margin: 0 auto;
+`;
 
 class Directory extends Component {
     constructor() {
@@ -46,7 +53,7 @@ class Directory extends Component {
         let selectedMeal = obj.checkboxSelection;
         let payload = {
             id: id,
-            selectedCategories: this.props.selectedCategories,
+            selectedCategories: this.props.selectedCategories.category,
             selectedMeal: selectedMeal,
             type: type
         };
@@ -59,7 +66,7 @@ class Directory extends Component {
     }
     render() {
         return (
-            <div className="container">
+            <MainWrapper>
                 <YelpSearchForm handleSubmit={this.handleSubmit} />
                 {this.props.results.length > 0 && (
                     <YelpSearchResults>
@@ -136,7 +143,7 @@ class Directory extends Component {
                         })}
                     </DirectoryList>
                 )}
-            </div>
+            </MainWrapper>
         );
     }
 }

@@ -1,15 +1,24 @@
 import React from "react";
+import styled from "styled-components";
+import sizes from "../../style-settings/scale";
+import theming from "../../style-settings/theming";
 
-const AddedRestaurant = (props) => {
-    
+const AddedRestaurant = ({ restaurant, className, children }) => {
     return (
-        <div className="list-group-item">
-            <div>{props.restaurant.name}</div>
-            <div>{props.restaurant.address}</div>
-            {props.children}
+        <div className={className}>
+            <div>{restaurant.name}</div>
+            <div>{restaurant.address}</div>
+            {children}
         </div>
     
     )
 }
 
-export default AddedRestaurant;
+const StyledAddedRestaurant = styled(AddedRestaurant)`
+    background-color: #ffffff;
+    padding: ${sizes.xlarge};
+    border-radius: 5px;
+    box-shadow: ${theming.cardShadow};
+`;
+
+export default StyledAddedRestaurant;

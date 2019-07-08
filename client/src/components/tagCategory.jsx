@@ -1,9 +1,24 @@
 import React from "react";
+import styled from "styled-components";
+import colors from "../style-settings/colors";
+import sizes from "../style-settings/scale";
+import { capitalizeFirstLetter } from "../helpers";
 
-function TagCategory(props) {
+function TagCategory({ className, category }) {
+    const transformedCategory = capitalizeFirstLetter(category);
+
     return (
-        <span className="badge badge-secondary">{props.category}</span>
+        <span className={className}>{ transformedCategory }</span>
     );
 }
 
-export default TagCategory;
+const StyledTagCategory = styled(TagCategory)`
+    color: ${ colors.pinkLight };
+    padding: ${ sizes.xxsmall } ${ sizes.small } ;
+    border-radius: 15px;
+    border: 1px solid ${ colors.pinkLight };
+    display:inline-block;
+    font-size: ${ sizes.small }
+`;
+
+export default StyledTagCategory;

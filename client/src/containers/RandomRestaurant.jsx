@@ -1,10 +1,31 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import GetRandomRestaurantForm from "../components/randomRestaurant/Form";
 import RandomRestaurantResultCard from "../components/randomRestaurant/resultCard";
-// import TagMeal from "../components/tagMeal";
-// import TagCategory from "../components/tagCategory";
+import Button from "../components/button";
+import { buttonThemes } from "../style-settings/colors";
+
+import styled from "styled-components";
+import sizes from "../style-settings/scale";
+import theming from "../style-settings/theming";
+
+const MainWrapper = styled.div`
+    background-color: white;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: ${theming.cardShadow};
+`;
+
+const ActionsWrapper = styled.div`
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+`;
 
 class RandomRestaurant extends Component {
     constructor(props) {
@@ -38,36 +59,39 @@ class RandomRestaurant extends Component {
     }
     render() {
         return (
-            <div className="container">
-                {this.props.categories &&
-                    this.props.meal &&
-                    this.props.showForm && (
-                        <GetRandomRestaurantForm
-                            getRandomRestaurant={this.getRandomRestaurant}
-                            categories={this.props.categories}
-                            meal={this.props.meal}
-                        />
-                    )}
+            <React.Fragment>
+                <ActionsWrapper>
+                    <Link to="/directory" className="button-primary">Directory</Link>
+                </ActionsWrapper>
+                <MainWrapper>
+                    {this.props.categories &&
+                        this.props.meal &&
+                        this.props.showForm && (
+                            <GetRandomRestaurantForm
+                                getRandomRestaurant={this.getRandomRestaurant}
+                                categories={this.props.categories}
+                                meal={this.props.meal}
+                            />
+                        )}
 
-                {this.props.restaurant &&
-                    this.props.showResult && (
-                        <div>
-                            <button
-                                className="btn btn-outline-primary"
-                                onClick={this.tryAgain}
-                            >
-                                Try again
-                            </button>
-                            <button
-                                className="btn btn-outline-primary"
-                                onClick={this.startOver}
-                            >
-                                Start over
-                            </button>
-                            <RandomRestaurantResultCard restaurant={this.props.restaurant} />
-                        </div>
-                    )}
-            </div>
+                    {this.props.restaurant &&
+                        this.props.showResult && (
+                            <div>
+                                <Button
+                                    text="Try Again"
+                                    handler={this.tryAgain}
+                                    style={{ marginRight: sizes.base }}
+                                    theme={buttonThemes.secondary} />
+                                <Button
+                                    text="Start Over"
+                                    handler={this.startOver}
+                                    theme={buttonThemes.secondary} />
+
+                                <RandomRestaurantResultCard restaurant={this.props.restaurant} />
+                            </div>
+                        )}
+                </MainWrapper>
+            </React.Fragment>
         );
     }
 }

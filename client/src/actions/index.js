@@ -134,9 +134,12 @@ export function fetchRandomRestaurant(payload) {
 }
 
 function _makeRandomRestaurantAjaxCall(payload, dispatch) {
-    dispatch({ type: "REQUEST_RANDOM_RESTAURANT", data: payload });
+    const { category } = payload.categories;
+    const { type } = payload.meal;
 
-    fetch(`/api/restaurant/random/${payload.categories}/${payload.meal}`)
+    dispatch({ type: "REQUEST_RANDOM_RESTAURANT", data: payload });
+    
+    fetch(`/api/restaurant/random/${category}/${type}`)
         .then(res => res.json())
         .then(restaurant => {
             dispatch({

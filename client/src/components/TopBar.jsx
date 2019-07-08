@@ -1,17 +1,31 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
+import styled from "styled-components";
+import sizes from "../style-settings/scale";
+import colors from "../style-settings/colors";
+
+import logo from "../_images/idontfeellikecooking.svg";
+
+const Logo = styled.h1`
+    max-width: 1000px;
+    margin:0 auto;
+`;
+
+const Wrapper = styled.header`
+    background-color: ${colors.pinkLight};
+    margin-bottom: ${sizes.xxlarge};
+    padding: ${sizes.base} 0;
+`;
 
 class TopBar extends Component {
 
     render() {
         return (
-            <div className="container">
-                <h1>
-                    <Link to="/" className="button-primary">I don't feel like cooking!</Link>
-                </h1>
-                <Link to="/directory" className="button-primary">Directory</Link>
-
-            </div>
+            <Wrapper>
+                <Logo>
+                    <Link to="/" className="button-primary"><img src={logo} alt=""/></Link>
+                </Logo>
+            </Wrapper>
         )
     }
 }

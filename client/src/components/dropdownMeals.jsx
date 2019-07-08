@@ -1,27 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Select from 'react-select';
+import styled from "styled-components";
+import sizes from "../style-settings/scale";
 
-function DropdownMeals(props) {
-    const handleChange = e => {
-        props.handleMealChange(e);
+function DropdownMeals({ className, meal, handleMealChange }) {
+    const [value, setValue] = useState(null);
+
+    const handleChange = value => {
+        setValue(value);
     };
+
+    useEffect(() => {
+        if (value !== null) {
+            handleMealChange(value);
+        }
+    });
     
-    return (
+    const options = [...meal];
         
-        <select
-            className="form-control"
-            name="meal"
-            id="meal"
+    options.map((e) => {
+        e.value = e.type; 
+        e.label = e.type;
+    });
+
+    return (
+        <Select
+            className={className}
             onChange={handleChange}
-        >
-            <option value="">Select a meal</option>
-            {props.meal.map((i, index) => {
-                return (
-                    <option value={i.type} key={index}>
-                        {i.type}
-                    </option>
-                );
-            })}
-        </select>
+            value={value}
+            options={options}
+        />
     );
 }
-export default DropdownMeals;
+
+const StyledDropdownMeals = styled(DropdownMeals)`
+    margin-bottom: ${sizes.base};
+`;
+
+export default StyledDropdownMeals;

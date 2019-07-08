@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Select from 'react-select';
+import styled from 'styled-components';
+import sizes from '../style-settings/scale';
 
 class DropdownCategories extends Component {
     constructor() {
@@ -7,6 +10,7 @@ class DropdownCategories extends Component {
             value: false
         };
         this.handleChange = this.handleChange.bind(this);
+
     }
     componentDidMount() {
         if (this.props.selected) {
@@ -15,10 +19,10 @@ class DropdownCategories extends Component {
             });
         }
     }
-    handleChange(e) {
+    handleChange(value) {
         this.setState(
             {
-                value: e.target.value
+                value: value
             },
             () => {
                 this.props.handleCategoryChange(this.state.value);
@@ -26,24 +30,27 @@ class DropdownCategories extends Component {
         );
     }
     render() {
+        const options = [...this.props.categories];
+        
+        options.map((e) => {
+            e.value = e.category;
+            e.label = e.category;
+        });
+
         return (
-            <select
-                className="form-control"
-                name="categories"
-                id="categories"
+            <Select
+                className={this.props.className}
                 onChange={this.handleChange}
                 value={this.state.value}
-            >
-                <option value="">Select a category</option>
-                {this.props.categories.map((i, index) => {
-                    return (
-                        <option value={i.category} key={index}>
-                            {i.category}
-                        </option>
-                    );
-                })}
-            </select>
+                options={options}
+            />
         );
     }
 }
-export default DropdownCategories;
+
+const StyledDropdownCategories = styled(DropdownCategories)`
+    margin-bottom: ${sizes.base};
+`;
+
+
+export default StyledDropdownCategories;

@@ -32,7 +32,7 @@ module.exports = {
         return Restaurants.findOne({
             where: {
                 category: req.params.category,
-                meal: {[sequelize.Op.contains]: [req.params.meal]}
+                meal: {[Symbol.for('sequelize.operator.contains')]: [req.params.meal]}
             },
             order: sequelize.fn('RANDOM')
         })

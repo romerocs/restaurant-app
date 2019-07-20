@@ -59,7 +59,7 @@ export function deleteAddedRestaurant(payload) {
 function _deleteAddedRestaurantAjaxCall(payload, dispatch) {
     dispatch({ type: "DELETE_ADDED_RESTAURANT_REQUEST" });
 
-    fetch(`api/delete/restaurant/${payload}`, {
+    fetch(`api/restaurant/delete/${payload}`, {
         method: "DELETE",
         headers: {
             "content-type": "application/json"
@@ -134,20 +134,19 @@ export function fetchRandomRestaurant(payload) {
 }
 
 function _makeRandomRestaurantAjaxCall(payload, dispatch) {
-    const { category } = payload.categories;
-    const { type } = payload.meal;
+    const { categories, meal } = payload;
 
     dispatch({ type: "REQUEST_RANDOM_RESTAURANT", data: payload });
-    
-    fetch(`/api/restaurant/random/${category}/${type}`)
+
+    fetch(`/api/restaurant/random/${categories}/${meal}`)
         .then(res => res.json())
         .then(restaurant => {
             dispatch({
                 type: "RECEIVED_RANDOM_RESTAURANT_SUCCESS",
                 data: {
                     restaurant: restaurant,
-                    meal: payload.meal,
-                    categories: payload.categories
+                    meal: meal,
+                    categories: categories
                 }
             });
         })

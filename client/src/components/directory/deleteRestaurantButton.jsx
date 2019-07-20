@@ -1,17 +1,32 @@
 import React from "react";
+import { ReactComponent as TrashIcon } from "open-iconic/svg/trash.svg";
+import styled from "styled-components";
+import colors from "../../style-settings/colors";
+import { roundButton, roundButtonIcon } from "../../style-settings/theming";
 
-function DeleteRestaurantButton(props) {
+const DeleteButton = styled.button`
+    ${ roundButton }
+    width: 35px;
+    height: 35px;
+    border: 1px solid ${colors.greyLight};
+`;
+
+const StyledIcon = styled(TrashIcon)`
+    ${ roundButtonIcon }
+    fill: ${colors.grey};
+    width: 15px;
+    height: 15px;
+`;
+
+function DeleteRestaurantButton({ onDeleteClick, id }) {
     return (
-        <div>
-            <button
-                className="btn btn-primary"
-                onClick={props.onDeleteClick}
-                id={props.id}
+        <React.Fragment>
+            <DeleteButton
+                onClick={() => onDeleteClick(id)}
             >
-                
-                Delete
-            </button>
-        </div>
+                <StyledIcon />
+            </DeleteButton>
+        </React.Fragment>
     );
 }
 

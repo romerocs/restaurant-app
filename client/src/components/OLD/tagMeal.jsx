@@ -6,7 +6,7 @@ import { capitalizeFirstLetter } from "../helpers";
 
 function TagMeal({ className, meal }) {
     const transformedMeal = capitalizeFirstLetter(meal);
-
+    
     return (
         <span className={className}>{ transformedMeal }</span>
     );
@@ -14,12 +14,6 @@ function TagMeal({ className, meal }) {
 
 const StyledTagMeal = styled(TagMeal)`
     color: ${ colors.blueLight };
-    padding: ${ sizes.xxsmall };
-    border-radius: 15px;
-    border: 1px solid ${ colors.blueLight };
-    display:inline-block;
-    font-size: ${ sizes.small };
-    margin-right: ${ sizes.xxsmall };
 `;
 
 export default StyledTagMeal;

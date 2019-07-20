@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DropdownCategories from "./dropdownCategories";
 import CheckboxMeals from "./checkboxMeals";
-import UpdateRestaurantButton from "./directory/updateRestaurantButton";
+import EditRestaurantButton from "../components/directory/editRestaurantButton";
 import TagCategory from "./tagCategory";
 import TagMeal from "./tagMeal";
 
@@ -96,9 +96,7 @@ class RestaurantOptions extends Component {
                                     return <TagMeal key={index} meal={i} />;
                                 })}
                             <TagCategory category={this.props.category} />
-                            <button onClick={() => this.onEditClick(true)}>
-                                Edit
-                            </button>
+                            <EditRestaurantButton onEditClick={ this.onEditClick }/>
                         </React.Fragment>
                     )}
                 </React.Fragment>

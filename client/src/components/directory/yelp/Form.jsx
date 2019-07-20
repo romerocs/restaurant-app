@@ -5,9 +5,14 @@ import colors from "../../../style-settings/colors";
 import Button from "../../button";
 import { buttonThemes } from "../../../style-settings/colors";
 
+const StyledForm = styled.form`
+    display: flex;
+    margin-bottom: ${sizes.large};
+`;
 const TextField = styled.input`
     width: 100%;
-    padding: ${sizes.xsmall};
+    padding: ${sizes.xsmall};   
+    margin-right: ${sizes.base};
     border-radius: 3px;
     border: 1px solid ${colors.greyLight};
     color: ${colors.greyLight};
@@ -15,10 +20,10 @@ const TextField = styled.input`
 
 const Form = ({ handleSubmit }) => {
     return (
-        <form onSubmit={handleSubmit}>
+        <StyledForm onSubmit={handleSubmit}>
             <TextField type="text" name="keyword" placeholder="Search Yelp"/>
             <Button text="Search" type="submit" theme={ buttonThemes.primary } />
-        </form>
+        </StyledForm>
     
     )
 }

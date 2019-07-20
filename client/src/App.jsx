@@ -10,14 +10,29 @@ import RandomRestaurant from "./containers/RandomRestaurant";
 import Directory from "./containers/Directory";
 import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import chefImage from "./_images/angrychef.svg";
+
 const GlobalStyle = createGlobalStyle`
   ${normalize}
   
   @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
   body {
-    background-color: ${colors.pinkLightest};
+    background-color: #ffffff;
     font-family: 'Montserrat', sans-serif;
+    position: relative;
+
+    /* &:before {
+        content: "";
+        position: absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        background-image: url(${chefImage});
+        background-repeat: no-repeat;
+        z-index: 1;
+    } */
   }
 `;
 

@@ -4,22 +4,19 @@ import styled from 'styled-components';
 import sizes from '../style-settings/scale';
 
 class DropdownCategories extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            value: false
+            value: this.props.selected
         };
+
         this.handleChange = this.handleChange.bind(this);
 
     }
-    componentDidMount() {
-        if (this.props.selected) {
-            this.setState({
-                value: this.props.selected
-            });
-        }
-    }
-    handleChange(value) {
+
+    handleChange(data) {
+        const { value } = data;
+
         this.setState(
             {
                 value: value
@@ -36,13 +33,15 @@ class DropdownCategories extends Component {
             e.value = e.category;
             e.label = e.category;
         });
+        
+        const value = (this.state.value === undefined) ? "Select a category" : this.state.value;
 
         return (
             <Select
                 className={this.props.className}
                 onChange={this.handleChange}
-                value={this.state.value}
                 options={options}
+                value={{ value: value, label: value }}
             />
         );
     }

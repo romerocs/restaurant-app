@@ -9,12 +9,15 @@ import logo from "../_images/idontfeellikecooking.svg";
 const Logo = styled.h1`
     max-width: 1000px;
     margin:0 auto;
+    padding: ${sizes.large};
 `;
 
 const Wrapper = styled.header`
     background-color: ${colors.pinkLight};
     margin-bottom: ${sizes.xxlarge};
     padding: ${sizes.base} 0;
+    position: relative;
+    z-index: 10;
 `;
 
 class TopBar extends Component {
@@ -23,7 +26,9 @@ class TopBar extends Component {
         return (
             <Wrapper>
                 <Logo>
-                    <Link to="/" className="button-primary"><img src={logo} alt=""/></Link>
+                    <Link to="/" className="button-primary">
+                        <img src={logo} alt=""/>
+                    </Link>
                 </Logo>
             </Wrapper>
         )

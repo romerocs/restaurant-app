@@ -18,9 +18,9 @@ function DropdownMeals({ className, meal, handleMealChange }) {
     
     const options = [...meal];
         
-    options.map((e) => {
-        e.value = e.type; 
-        e.label = e.type;
+    options.map((o) => {
+        o.value = o.type; 
+        o.label = o.type;
     });
 
     return (

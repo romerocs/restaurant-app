@@ -9,8 +9,9 @@ const colors = {
   blueLightest: '#f1eeff',
   grey: '#89837b',
   greyLight: '#cfcfcf',
-  greyLightest: '#f6f6f4',
-  black: '#000000'
+  greyLightest: '#ececec',
+  black: '#000000',
+  white: '#ffffff'
 };
 
 export const buttonThemes = {

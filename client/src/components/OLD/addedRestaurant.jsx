@@ -4,11 +4,13 @@ import sizes from "../../style-settings/scale";
 import theming from "../../style-settings/theming";
 
 const AddedRestaurant = ({ restaurant, className, children }) => {
+    const tools = <div> {children}</div>;
+
     return (
         <div className={className}>
             <div>{restaurant.name}</div>
             <div>{restaurant.address}</div>
-            {children}
+            <div>{children}</div>
         </div>
     
     )

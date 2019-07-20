@@ -13,10 +13,10 @@ function TagCategory({ className, category }) {
 }
 
 const StyledTagCategory = styled(TagCategory)`
-    color: ${ colors.pinkLight };
+    color: ${ colors.pink };
     padding: ${ sizes.xxsmall } ${ sizes.small } ;
     border-radius: 15px;
-    border: 1px solid ${ colors.pinkLight };
+    border: 1px solid ${ colors.pink };
     display:inline-block;
     font-size: ${ sizes.small }
 `;

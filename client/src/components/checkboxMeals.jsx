@@ -1,32 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import Checkbox from "./checkbox";
 
-function CheckboxMeals(props) {
-    if (props.selected) {
+function CheckboxMeals({ meal, selected, onCheckboxClick }) {
+    if (selected) {
         return (
             <div>
-                {props.meal.map((i, index) => {
+                {meal.map((i, index) => {
                     return (
                         <div key={index} className="checkbox">
-                            {props.selected.indexOf(i.type) !== -1 && (
-                                <label key={index} htmlFor="">
-                                    <input
-                                        onClick={props.onCheckboxClick}
-                                        type="checkbox"
-                                        value={i.type}
-                                        defaultChecked="true"
-                                    />
-                                    {i.type}
-                                </label>
+                            {selected.indexOf(i.type) !== -1 && (
+                                <Checkbox
+                                    key={index}
+                                    onCheckboxClick={onCheckboxClick}
+                                    value={i.type}
+                                    checked={true}
+                                />
                             )}
-                            {props.selected.indexOf(i.type) === -1 && (
-                                <label key={index} htmlFor="">
-                                    <input
-                                        onClick={props.onCheckboxClick}
-                                        type="checkbox"
-                                        value={i.type}
-                                    />
-                                    {i.type}
-                                </label>
+                            {selected.indexOf(i.type) === -1 && (
+                                <Checkbox
+                                    key={index}
+                                    onCheckboxClick={onCheckboxClick}
+                                    value={i.type}
+                                    checked={false}
+                                />
                             )}
                         </div>
                     );
@@ -36,12 +32,12 @@ function CheckboxMeals(props) {
     } else {
         return (
             <div>
-                {props.meal.map((i, index) => {
+                {meal.map((i, index) => {
                     return (
                         <div key={index} className="checkbox">
                             <label key={index} htmlFor="">
                                 <input
-                                    onClick={props.onCheckboxClick}
+                                    onClick={onCheckboxClick}
                                     type="checkbox"
                                     value={i.type}
                                 />

@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import GetRandomRestaurantForm from "../components/randomRestaurant/Form";
-import RandomRestaurantResultCard from "../components/randomRestaurant/resultCard";
+import RandomRestaurantResult from "../components/randomRestaurant/result";
 import Button from "../components/button";
 import { buttonThemes } from "../style-settings/colors";
 
 import styled from "styled-components";
 import sizes from "../style-settings/scale";
+import colors from "../style-settings/colors";
 import theming from "../style-settings/theming";
 
 const MainWrapper = styled.div`
@@ -16,7 +17,6 @@ const MainWrapper = styled.div`
     max-width: 500px;
     width: 100%;
     margin: 0 auto;
-    padding: 50px;
     border-radius: 15px;
     box-shadow: ${theming.cardShadow};
 `;
@@ -25,6 +25,30 @@ const ActionsWrapper = styled.div`
     max-width: 500px;
     width: 100%;
     margin: 0 auto;
+    margin-bottom: ${sizes.xxsmall};
+    display: flex;
+`;
+
+const DirectoryLink = styled(Link)`
+    color: ${colors.pink};
+    text-decoration: none;
+    font-size: ${sizes.small};
+    font-weight: bold;
+    margin-left: auto;
+    padding-right: ${sizes.small};
+`;
+
+const ResultCard = styled.div`
+    padding: ${sizes.xxlarge};
+`;
+
+const ResultButtons = styled.div`
+    margin-bottom: ${sizes.large};
+`;
+
+const Padding = styled.div`
+    padding-left: ${sizes.large};
+    padding-right: ${sizes.large};
 `;
 
 class RandomRestaurant extends Component {
@@ -35,10 +59,10 @@ class RandomRestaurant extends Component {
         this.tryAgain = this.tryAgain.bind(this);
     }
 
-    getRandomRestaurant(params) {
+    getRandomRestaurant({ meal, categories }) {
         let payload = {
-            meal: params.meal,
-            categories: params.categories
+            meal: meal,
+            categories: categories
         };
 
         this.props.dispatch(actions.fetchRandomRestaurant(payload));
@@ -59,9 +83,9 @@ class RandomRestaurant extends Component {
     }
     render() {
         return (
-            <React.Fragment>
+            <Padding>
                 <ActionsWrapper>
-                    <Link to="/directory" className="button-primary">Directory</Link>
+                    <DirectoryLink to="/directory" className="button-primary">Directory</DirectoryLink>
                 </ActionsWrapper>
                 <MainWrapper>
                     {this.props.categories &&
@@ -76,22 +100,24 @@ class RandomRestaurant extends Component {
 
                     {this.props.restaurant &&
                         this.props.showResult && (
-                            <div>
-                                <Button
-                                    text="Try Again"
-                                    handler={this.tryAgain}
-                                    style={{ marginRight: sizes.base }}
-                                    theme={buttonThemes.secondary} />
-                                <Button
-                                    text="Start Over"
-                                    handler={this.startOver}
-                                    theme={buttonThemes.secondary} />
+                            <ResultCard>
+                                <ResultButtons>
+                                    <Button
+                                        text="Try Again"
+                                        handler={this.tryAgain}
+                                        style={{ marginRight: sizes.base }}
+                                        theme={buttonThemes.secondary} />
+                                    <Button
+                                        text="Start Over"
+                                        handler={this.startOver}
+                                        theme={buttonThemes.secondary} />
+                                </ResultButtons>
 
-                                <RandomRestaurantResultCard restaurant={this.props.restaurant} />
-                            </div>
+                                <RandomRestaurantResult restaurant={this.props.restaurant} />
+                            </ResultCard>
                         )}
                 </MainWrapper>
-            </React.Fragment>
+            </Padding>
         );
     }
 }

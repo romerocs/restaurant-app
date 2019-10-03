@@ -167,6 +167,7 @@ function categorySelection(state = defaultCategorySelectionState, action) {
     }
 }
 
+
 export default combineReducers({
     fetchInitialState: fetchInitialState,
     fetchRandomRestaurant: fetchRandomRestaurant,

@@ -11,6 +11,7 @@ import styled from "styled-components";
 import sizes from "../style-settings/scale";
 import colors from "../style-settings/colors";
 import theming from "../style-settings/theming";
+import LoginLogoutButtons from "../components/loginLogoutButtons";
 
 const MainWrapper = styled.div`
     background-color: white;
@@ -27,6 +28,7 @@ const ActionsWrapper = styled.div`
     margin: 0 auto;
     margin-bottom: ${sizes.xxsmall};
     display: flex;
+    align-items: center;
 `;
 
 const DirectoryLink = styled(Link)`
@@ -51,12 +53,71 @@ const Padding = styled.div`
     padding-right: ${sizes.large};
 `;
 
+function checkAuthentication() {
+    this.props.auth.isAuthenticated()
+        .then(authenticated => {
+            if (authenticated && !this.state.userinfo) {
+                this.props.auth.getUser()
+                    .then(userinfo => {
+                        if (this._isMounted) {
+                            this.setState({ userinfo });
+                        }
+                    })
+            }
+            else {
+                if (this._isMounted) {
+                    this.setState({ authenticated });
+                }
+            }
+        });
+}
+
+function login() {
+    this.props.auth.login('/');
+}
+
+function logout() {
+    this.props.auth.logout("/")
+        .then(d => {
+            this.setState({ authenticated: null });
+        })
+        .catch(err => {
+            // Silently ignore no such session errors
+            if (err.errorCode !== "E0000007") {
+                throw err;
+            }
+        });
+}
+
 class RandomRestaurant extends Component {
+    _isMounted = false;
+
     constructor(props) {
         super(props);
+        this.state = { authenticated: null, userinfo: null };
+
+        this.checkAuthentication = checkAuthentication.bind(this);
+        this.checkAuthentication();
+        this.login = login.bind(this);
+        this.logout = logout.bind(this);
+
         this.getRandomRestaurant = this.getRandomRestaurant.bind(this);
         this.startOver = this.startOver.bind(this);
         this.tryAgain = this.tryAgain.bind(this);
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    componentDidUpdate() {
+        if (this.state.authenticated === null) {
+            this.checkAuthentication();
+        }
     }
 
     getRandomRestaurant({ meal, categories }) {
@@ -82,9 +143,15 @@ class RandomRestaurant extends Component {
         });
     }
     render() {
+        const { authenticated } = this.state;
+        const { login, logout } = this;
+
         return (
             <Padding>
                 <ActionsWrapper>
+                    <div>
+                        <LoginLogoutButtons {...{ login, logout, authenticated }} />
+                    </div>
                     <DirectoryLink to="/directory" className="button-primary">Directory</DirectoryLink>
                 </ActionsWrapper>
                 <MainWrapper>
@@ -117,7 +184,7 @@ class RandomRestaurant extends Component {
                             </ResultCard>
                         )}
                 </MainWrapper>
-            </Padding>
+            </Padding >
         );
     }
 }

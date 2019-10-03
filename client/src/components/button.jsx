@@ -5,6 +5,7 @@ import sizes from '../style-settings/scale';
 //import { HomeIcon } from "../style-settings/icons";
 
 const Button = ({ text, type, className, handler, style, theme }) => {
+
   return (
     <button
       className={className}

@@ -8,7 +8,7 @@ export function updateAddedRestaurant(payload) {
 
 function _updateAddedRestaurantAjaxCall(payload, dispatch) {
     dispatch({ type: "UPDATE_ADDED_RESTAURANT_REQUEST" });
-
+;
     fetch(`api/restaurant/update/${payload.id}`, {
         method: "PUT",
         body: JSON.stringify({

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Security, SecureRoute, ImplicitCallback, withAuth } from '@okta/okta-react';
 import { connect } from "react-redux";
 
 import styled, { createGlobalStyle } from 'styled-components';
@@ -8,9 +9,10 @@ import colors from './style-settings/colors';
 import TopBar from "./components/TopBar";
 import RandomRestaurant from "./containers/RandomRestaurant";
 import Directory from "./containers/Directory";
-import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import chefImage from "./_images/angrychef.svg";
+import Auth from "@okta/okta-react/dist/Auth";
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
@@ -21,38 +23,35 @@ const GlobalStyle = createGlobalStyle`
     background-color: #ffffff;
     font-family: 'Montserrat', sans-serif;
     position: relative;
-
-    /* &:before {
-        content: "";
-        position: absolute;
-        top:0;
-        left:0;
-        width: 100%;
-        height: 100%;
-        background-image: url(${chefImage});
-        background-repeat: no-repeat;
-        z-index: 1;
-    } */
   }
 `;
 
 class App extends Component {
     render() {
+        const RandomRestaurantWithAuth = withAuth(RandomRestaurant);
+        const DirectoryWithAuth = withAuth(Directory);
         return (
             <Router>
-                <div className="App">
-                    { <GlobalStyle pinkColor/> }
-                    <TopBar />
-                    <Switch>
-                        <Route path="/" component={() => 
-                            <RandomRestaurant meal={this.props.meal} categories={this.props.categories} />
-                        } exact />
-                        <Route path="/directory" component={() => 
-                            <Directory meal={this.props.meal} categories={this.props.categories} />
-                        } exact />
-                    </Switch>
-                    
-                </div>
+                <Security
+                    issuer={`${process.env.REACT_APP_OKTA_ORG_URL}/oauth2/default`}
+                    client_id={process.env.REACT_APP_OKTA_CLIENT_ID}
+                    redirect_uri={`${window.location.origin}/implicit/callback`}
+                >
+                    <div className="App">
+                        {<GlobalStyle pinkColor />}
+                        <TopBar />
+                        <Switch>
+                            <Route path="/" component={() =>
+                                <RandomRestaurantWithAuth meal={this.props.meal} categories={this.props.categories} />
+                            } exact />
+                            <SecureRoute path="/directory" component={() =>
+                                <DirectoryWithAuth meal={this.props.meal} categories={this.props.categories} />
+                            } exact />
+                            <Route path="/implicit/callback" component={ImplicitCallback} />
+                        </Switch>
+
+                    </div>
+                </Security>
             </Router>
         );
     }

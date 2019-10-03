@@ -25,13 +25,16 @@ if (process.env.NODE_ENV === 'production') {
     })
   );
 
-  // app.get(['/', '/directory'], function(req, res) {
-  //   res.sendFile(path.resolve(__dirname, '..', 'client/build/index.html'), function(err) {
-  //     if (err) {
-  //       res.status(500).send(err)
-  //     }
-  //   })
-  // })
+  app.get(['/', '/directory', '/implicit/callback'], function(req, res) {
+    res.sendFile(
+      path.resolve(__dirname, '..', 'client/build/index.html'),
+      function(err) {
+        if (err) {
+          res.status(500).send(err);
+        }
+      }
+    );
+  });
 } else {
   app.use(
     express.static(path.resolve(__dirname, '..', 'client/public'), {

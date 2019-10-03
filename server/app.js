@@ -18,28 +18,27 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Express only serves static assets in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(
-    path.resolve(__dirname, '..', 'client/build'),
-    { maxAge: '30d' },
-  ));
-
-  app.get(['/', '/directory'], function(req, res) {   
-    res.sendFile(path.resolve(__dirname, '..', 'client/build/index.html'), function(err) {
-      if (err) {
-        res.status(500).send(err)
-      }
+if (process.env.NODE_ENV === 'production') {
+  app.use(
+    express.static(path.resolve(__dirname, '..', 'client/build'), {
+      maxAge: '30d'
     })
-  })
-}
-else {
-  app.use(express.static(
-    path.resolve(__dirname, '..', 'client/public'),
-    { maxAge: '30d' },
-  ));
-}
+  );
 
-
+  // app.get(['/', '/directory'], function(req, res) {
+  //   res.sendFile(path.resolve(__dirname, '..', 'client/build/index.html'), function(err) {
+  //     if (err) {
+  //       res.status(500).send(err)
+  //     }
+  //   })
+  // })
+} else {
+  app.use(
+    express.static(path.resolve(__dirname, '..', 'client/public'), {
+      maxAge: '30d'
+    })
+  );
+}
 
 app.use('/', indexRouter);
 

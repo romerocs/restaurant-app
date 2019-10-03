@@ -34,8 +34,9 @@ class App extends Component {
             <Router>
                 <Security
                     issuer={`${process.env.REACT_APP_OKTA_ORG_URL}/oauth2/default`}
-                    client_id={process.env.REACT_APP_OKTA_CLIENT_ID}
-                    redirect_uri={`${window.location.origin}/implicit/callback`}
+                    clientId={process.env.REACT_APP_OKTA_CLIENT_ID}
+                    redirectUri={`${window.location.origin}/implicit/callback`}
+                    pkce={true}
                 >
                     <div className="App">
                         {<GlobalStyle pinkColor />}

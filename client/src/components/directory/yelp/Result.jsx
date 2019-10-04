@@ -25,12 +25,12 @@ const StyledIcon = styled(PlusIcon)`
 `;
 
 function Result({ className, name, index, addButtonClick }) {
+
     return (
         <div className={className}>
             <h3>{name}</h3>
             <AddButton
-                onClick={addButtonClick}
-                index={index}
+                onClick={() => addButtonClick(index)}
                 aria-label="Add Restaurant"
             >
                 <StyledIcon />

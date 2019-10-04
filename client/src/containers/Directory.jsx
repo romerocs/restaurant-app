@@ -41,9 +41,8 @@ class Directory extends Component {
         this.props.dispatch(actions.searchYelp(e.target.keyword.value));
     }
 
-    addButtonClick(e) {
-        let i = e.target.getAttribute("index");
-        let restaurant = this.props.results[i];
+    addButtonClick(i) {
+        const restaurant = this.props.results[i];
         this.props.dispatch(actions.addRestaurant(restaurant));
     }
 
@@ -68,7 +67,7 @@ class Directory extends Component {
             });
         }
     }
-    
+
     onSaveClick(obj) {
         let id = this.props.addedRestaurant.id
             ? this.props.addedRestaurant.id
@@ -99,8 +98,8 @@ class Directory extends Component {
                         {this.props.results.map((i, index) => {
                             return (
                                 <YelpSearchResult
-                                    name={i.name} 
-                                    key={index} 
+                                    name={i.name}
+                                    key={index}
                                     index={index}
                                     addButtonClick={this.addButtonClick} />
                             );
@@ -116,7 +115,7 @@ class Directory extends Component {
                         categories={this.props.categories}
                         onDeleteClick={this.onDeleteClick}
                         onSaveClick={this.onSaveClick}
-                        handleCategoryChange={this.handleCategoryChange} 
+                        handleCategoryChange={this.handleCategoryChange}
                         onCheckboxClick={this.onCheckboxClick} />
                 )}
 

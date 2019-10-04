@@ -1,33 +1,22 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 
-const restCtrl = require("../controllers").restaurants;
-const catCtrl = require("../controllers").categories;
-const mealCtrl = require("../controllers").meal;
-const yelp = require("../external/yelp").search;
+const restCtrl = require('../controllers').restaurants;
+const catCtrl = require('../controllers').categories;
+const mealCtrl = require('../controllers').meal;
+const yelp = require('../external/yelp').search;
 
-/* GET home page. */
-router.get("/", function(req, res, next) {
-    res.render("index", { title: "Express" });
-});
+router.post('/restaurant/add', restCtrl.create);
+router.put('/restaurant/update/:id', restCtrl.update);
+router.get('/restaurant/:category', restCtrl.category);
+router.get('/restaurant/random/:category/:meal', restCtrl.random);
+router.delete('/restaurant/delete/:id', restCtrl.destroy);
 
-router.get("/api", function(req, res, next) {
-    res.status(200).send({
-        message: "Welcome to the Restaurant API!"
-    });
-});
+router.get('/categories/', catCtrl.list);
 
-router.post("/api/restaurant/add", restCtrl.create);
-router.put("/api/restaurant/update/:id", restCtrl.update);
-router.get("/api/restaurant/:category", restCtrl.category);
-router.get("/api/restaurant/random/:category/:meal", restCtrl.random);
-router.delete("/api/restaurant/delete/:id", restCtrl.destroy);
+router.get('/meal/', mealCtrl.list);
 
-router.get("/api/categories/", catCtrl.list);
-
-router.get("/api/meal/", mealCtrl.list);
-
-router.get("/api/restaurants/list", restCtrl.list);
-router.get("/api/search/restaurants/:term", yelp);
+router.get('/restaurants/list', restCtrl.list);
+router.get('/search/restaurants/:term', yelp);
 
 module.exports = router;

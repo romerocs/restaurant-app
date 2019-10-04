@@ -5,7 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./src/routes');
+var apiRouter = require('./src/routes');
 
 var app = express();
 
@@ -17,6 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use('/api', apiRouter);
+
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
   app.use(
@@ -25,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
     })
   );
 
-  app.get(['/', '/directory', '/implicit/callback'], function(req, res) {
+  app.get(/.+[^api]/, function(req, res) {
     res.sendFile(
       path.resolve(__dirname, '..', 'client/build/index.html'),
       function(err) {
@@ -42,8 +44,6 @@ if (process.env.NODE_ENV === 'production') {
     })
   );
 }
-
-app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
